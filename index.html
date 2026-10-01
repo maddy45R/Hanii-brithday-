@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Haniii ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #050509;
+    color: white;
+    font-family: "Courier New", monospace;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* TERMINAL SCREEN */
+#terminalScreen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 95%;
+    max-width: 750px;
+    background: rgba(10, 10, 20, 0.95);
+    border: 1px solid #b18cff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow:
+        0 0 15px #b18cff,
+        0 0 40px rgba(177, 140, 255, 0.3);
+}
+
+.terminal-title {
+    color: #d6b8ff;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-shadow: 0 0 12px #b18cff;
+}
+
+#terminalText {
+    min-height: 280px;
+    line-height: 1.8;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+/* LOADING BAR */
+.loading-container {
+    margin-top: 20px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 22px;
+    border: 1px solid #d18bff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #a855f7, #ff6bb5);
+    box-shadow: 0 0 15px #d18bff;
+    transition: width 0.15s;
+    position: relative;
+}
+
+.loading-progress::after {
+    content: "❤️";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    font-size: 16px;
+    animation: heartBlink 0.6s infinite alternate;
+}
+
+@keyframes heartBlink {
+    from {
+        opacity: 0.4;
+        filter: drop-shadow(0 0 2px #ff6bb5);
+    }
+    to {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px #ff6bb5);
+    }
+}
+
+#percentage {
+    display: block;
+    margin-top: 8px;
+    color: #e0b3ff;
+}
+
+/* BIRTHDAY SCREEN */
+#birthdayScreen {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    text-align: center;
+    padding: 30px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background:
+        radial-gradient(
+            circle at center,
+            #301440 0%,
+            #170b25 45%,
+            #030305 100%
+        );
+}
+
+.card {
+    position: relative;
+    z-index: 5;
+    width: 95%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 35px 25px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(190, 120, 255, 0.5);
+    box-shadow:
+        0 0 25px rgba(190, 120, 255, 0.3),
+        0 0 45px rgba(255, 92, 170, 0.12),
+        inset 0 0 30px rgba(190, 120, 255, 0.05);
+    backdrop-filter: blur(8px);
+}
+
+/* CAKE */
+.cake {
+    font-size: 75px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* TITLE */
+.title {
+    font-family: Arial, sans-serif;
+    font-size: clamp(32px, 8vw, 58px);
+    background: linear-gradient(
+        90deg,
+        #d8b4fe,
+        #ff80bf,
+        #c4b5fd
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(210, 150, 255, 0.3);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        filter: drop-shadow(0 0 5px #b18cff);
+    }
+    to {
+        filter: drop-shadow(0 0 18px #ff6bb5);
+    }
+}
+
+/* BIRTHDAY MESSAGE */
+.message {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #f5f5f5;
+    margin-top: 25px;
+    overflow-wrap: break-word;
+}
+
+.highlight {
+    color: #e0b3ff;
+    font-weight: bold;
+}
+
+/* SECRET BUTTON */
+.secret-button {
+    margin-top: 30px;
+    padding: 14px 25px;
+    border: 1px solid #d18bff;
+    border-radius: 30px;
+    background: linear-gradient(
+        135deg,
+        rgba(168, 85, 247, 0.15),
+        rgba(255, 92, 170, 0.15)
+    );
+    color: #f0c4ff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(190, 120, 255, 0.3);
+}
+
+.secret-button:hover {
+    background: linear-gradient(135deg, #a855f7, #ff5caa);
+    color: white;
+    box-shadow:
+        0 0 15px #b18cff,
+        0 0 40px #ff5caa;
+    transform: scale(1.05);
+}
+
+/* SECRET MESSAGE */
+#secretMessage {
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(190, 120, 255, 0.08);
+    border: 1px solid rgba(210, 150, 255, 0.4);
+    animation: reveal 1.5s ease;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.secret-title {
+    color: #e0b3ff;
+    font-size: 25px;
+    text-shadow: 0 0 15px #b18cff;
+}
+
+.secret-text {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+}
+
+/* FLOATING HEARTS */
+.heart {
+    position: fixed;
+    bottom: -50px;
+    font-size: 20px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    z-index: 2;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 30px;
+    color: #c5b6d8;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+    #birthdayScreen {
+        padding: 20px 12px;
+    }
+
+    .card {
+        width: 100%;
+        padding: 25px 16px;
+    }
+
+    .message,
+    .secret-text {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .secret-title {
+        font-size: 21px;
+    }
+
+    .terminal {
+        padding: 18px;
+    }
+
+    #terminalText {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TERMINAL INTRO -->
+<section id="terminalScreen">
+    <div class="terminal">
+        <div class="terminal-title">
+            ♥ Haniii_Birthday.exe
+        </div>
+
+        <div id="terminalText"></div>
+
+        <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress" id="progress"></div>
+            </div>
+            <span id="percentage">0%</span>
+        </div>
+    </div>
+</section>
+
+<!-- BIRTHDAY SCREEN -->
+<section id="birthdayScreen">
+    <div class="card">
+
+        <div class="cake">🎂</div>
+
+        <h1 class="title">
+            HAPPY BIRTHDAY
+            <br>
+            HANIII ❤️
+        </h1>
+
+        <div class="message">
+            Today isn't just another day...
+
+            <br><br>
+
+            It's the day someone
+            <span class="highlight">really special</span>
+            came into this world. ✨
+
+            <br><br>
+
+            Haniii, you're not just a friend.
+
+            <br>
+
+            You're one of those people who can
+            make ordinary moments feel special. 🫶
+
+            <br><br>
+
+            May this year bring you everything 
+            you wish for and many more reasons to smile.
+            Stay happy, stay blessed, 
+            and keep being the amazing person you are. ❤️
+
+            <br><br>
+
+            I hope this new chapter brings you
+            endless happiness, beautiful memories,
+            and everything you wish for. 🌸
+
+            <br><br>
+
+            Stay happy.
+
+            <br>
+
+            Stay crazy.
+
+            <br>
+
+            Stay the amazing Haniii
+            that everyone knows. 💫
+        </div>
+
+        <!-- SECRET BUTTON -->
+        <button class="secret-button" onclick="showSecret()">
+            🔐 One More Surprise...
+        </button>
+
+        <!-- SECRET MESSAGE -->
+        <div id="secretMessage">
+            <div class="secret-title">
+                🔓 SECRET MESSAGE UNLOCKED...
+            </div>
+
+            <p class="secret-text">
+                <b>
+                    I don’t really know when it happened,
+                    but somewhere along the way, you became
+                    someone much more special to me than 
+                    I ever expected.❤️
+                </b>
+
+                <br><br>
+
+                But somewhere along the way,
+                something started changing. 👀❤️
+
+                <br><br>
+
+                Maybe it's still friendship.
+
+                <br>
+
+                Maybe it's becoming something more.
+
+                <br>
+
+                Maybe we don't need to give it
+                a name yet. :)
+
+                <br><br>
+
+                All I know is...
+
+                <br><br>
+
+                <b>
+                    Haniii, you're someone
+                    I definitely don't want to lose. 🫶
+                </b>
+
+                <br><br>
+
+                Happy Birthday to someone
+
+                <br>
+
+                who slowly became much more
+                special than expected. ❤️
+
+                <br><br>
+
+                <span class="highlight">
+
+                </span>
+
+                <br><br>
+
+                <span class="highlight">
+                    "System message:
+                    Let's see where this story goes... ✨"
+                </span>
+            </p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            Friendship.exe → Running Forever ♾️
+
+            <br><br>
+
+            ERROR 404:
+            Better friend not found. 😌❤️
+        </div>
+
+    </div>
+</section>
+
+<script>
+/* TERMINAL TYPING EFFECT */
+const lines = [
+    "> Booting Haniii_Birthday.exe...",
+    "> Establishing connection...",
+    "> Searching database...",
+    "> Special person detected.",
+    "> Name: HANIII ❤️",
+    "> Scanning friendship history...",
+    "> Memories found: TOO MANY 😭",
+    "> Laughs detected: ∞",
+    "> Crazy conversations: ∞",
+    "> Happiness module: LOADED",
+    "> Birthday module: READY 🎂",
+    "",
+    "> Preparing something special..."
+];
+
+let lineIndex = 0;
+let charIndex = 0;
+
+const terminalText = document.getElementById("terminalText");
+
+function typeLine() {
+    if (lineIndex >= lines.length) {
+        startLoading();
+        return;
+    }
+
+    let currentLine = lines[lineIndex];
+
+    if (charIndex < currentLine.length) {
+        terminalText.innerHTML += currentLine.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 30);
+    } else {
+        terminalText.innerHTML += "<br>";
+        lineIndex++;
+        charIndex = 0;
+        setTimeout(typeLine, 450);
+    }
+}
+
+/* LOADING BAR */
+function startLoading() {
+    let progress = 0;
+
+    const bar = document.getElementById("progress");
+    const percentage = document.getElementById("percentage");
+
+    const loading = setInterval(() => {
+        progress++;
+
+        bar.style.width = progress + "%";
+        percentage.innerText = progress + "%";
+
+        if (progress >= 100) {
+            clearInterval(loading);
+            setTimeout(showBirthday, 1000);
+        }
+    }, 30);
+}
+
+/* SHOW BIRTHDAY SCREEN */
+function showBirthday() {
+    document.getElementById("terminalScreen").style.display = "none";
+
+    document.getElementById("birthdayScreen").style.display = "block";
+
+    startHearts();
+}
+
+/* SHOW SECRET MESSAGE */
+function showSecret() {
+    const secret = document.getElementById("secretMessage");
+
+    secret.style.display = "block";
+
+    document.querySelector(".secret-button").style.display = "none";
+
+    createHeartExplosion();
+}
+
+/* CREATE FLOATING HEART */
+function createHeart() {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    const hearts = [
+        "💜",
+        "💗",
+        "💖",
+        "💕",
+        "💓",
+        "✨"
+    ];
+
+    heart.innerText = hearts[
+        Math.floor(Math.random() * hearts.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 11000);
+}
+
+/* START FLOATING HEARTS */
+function startHearts() {
+    setInterval(createHeart, 600);
+}
+
+/* SECRET HEART EXPLOSION */
+function createHeartExplosion() {
+    for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+            createHeart();
+        }, i * 80);
+    }
+}
+
+/* START PROGRAM */
+typeLine();
+</script>
+
+</body>
+</html>
